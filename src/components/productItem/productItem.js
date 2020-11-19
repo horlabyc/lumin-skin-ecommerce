@@ -4,9 +4,8 @@ import Image from '../image/image';
 import './productItem.scss';
 
 const ProductItem = ({product}) => {
-  console.log({product});
   const addToCart = () => {
-    console.log('clicked')
+    console.log(product)
   }
 
   return (  
