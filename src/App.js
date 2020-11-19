@@ -1,10 +1,16 @@
-import logo from './logo.svg';
 import './App.scss';
+import ProductItem from './components/productItem/productItem';
 
 function App() {
+
+  const handleClick = () => {
+    console.log('click');
+  }
   return (
     <div className="App">
-      <h2>App works!!!</h2>
+      <ProductItem />
+      <ProductItem />
+      <ProductItem />
     </div>
   );
 }
