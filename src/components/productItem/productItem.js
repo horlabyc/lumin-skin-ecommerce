@@ -4,16 +4,16 @@ import Image from '../image/image';
 import './productItem.scss';
 
 const ProductItem = ({product}) => {
-
+  console.log({product});
   const addToCart = () => {
     console.log('clicked')
   }
 
   return (  
     <div className="item__wrapper">
-      <Image imageSrc="https://cdn.shopify.com/s/files/1/2960/5204/products/age-management_1024x1024_ad6e7a36-7242-469c-9fb5-242f5ee9c83f_1024x1024.png?v=1602809968" altText="product"/>
-      <p className="description">Age Management Set</p>
-      <p className="price">$10.00</p>
+      <Image imageSrc={product.image_url} altText="product"/>
+      <p className="description">{product.title || ''}</p>
+      <p className="price">${product.price || 0}</p>
       <Button actionText="Add to cart" handleClick={addToCart}/>
     </div>
   );

@@ -1,6 +1,14 @@
 .item__wrapper {
   display: flex;
   flex-direction: column;
-  background: rgb(226, 230, 227);
+  background: #e2e6e3;
   text-align: center;
+  padding: 3rem 2rem;
+  flex-basis: 25%;
+  justify-content: center;
+  align-items: center;
+  .description {
+    line-height: 1.5;
+    margin: 0.5rem 0;
+  }
 }
