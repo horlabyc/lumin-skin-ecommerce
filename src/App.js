@@ -1,17 +1,17 @@
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import './App.scss';
-import ProductItem from './components/productItem/productItem';
+import NavBar from './components/navbar/navbar';
+import Routes from './routes';
 
 function App() {
-
-  const handleClick = () => {
-    console.log('click');
-  }
   return (
-    <div className="App">
-      <ProductItem />
-      <ProductItem />
-      <ProductItem />
-    </div>
+    <BrowserRouter>
+      <React.Fragment>
+        <NavBar />
+        <Routes/>
+      </React.Fragment>
+    </BrowserRouter>
   );
 }
 
