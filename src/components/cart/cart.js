@@ -1,12 +1,29 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../../contexts/cartcontext';
+import { gql, useQuery } from '@apollo/client';
+import { CurrencyContext } from '../../contexts/currencycontext';
+import CurrencySelector from '../currencySelect/currencySelect';
 import './cart.scss';
 
 const Cart = () => {
   const { cart, dispatch } = useContext(CartContext);
+  const { dispatch: currencyDispatch } = useContext(CurrencyContext);
+
   const closeDrawer = () => {
     dispatch({type: 'CLOSE_CART_DRAWER'})
   }
+
+  const changeCurrency = (currency) => {
+    currencyDispatch({type: 'SET_CURRENCY', payload: currency.toUpperCase()})
+  }
+
+  const CURRENCIES = gql`
+    query GetCurrency {
+      currency
+  }`;
+
+  const { data } = useQuery(CURRENCIES);
+
   return (  
     <div className={`drawer ${ cart.isOpen? 'open' : ''}`}>
       <div className="drawerBackdrop"></div>
@@ -22,10 +39,10 @@ const Cart = () => {
             <div></div>
           </div>
           <div className="body">
+            <CurrencySelector currencies={data?.currency} handleSelect={(value) => changeCurrency(value)}/>
             <section className={`menuItems`}>
               <p>Home</p>
               <p>Blog</p>
-              <a href="mailto:olabisisulaiman@gmail.com" target="_blank">Send me a mail</a>
             </section>
           </div>
         </div>

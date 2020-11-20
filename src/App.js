@@ -6,6 +6,7 @@ import NavBar from './components/navbar/navbar';
 import Routes from './routes';
 import CartContextProvider from './contexts/cartcontext';
 import Cart from './components/cart/cart';
+import CurrencyContextProvider from './contexts/currencycontext';
 
 const apolloClient = new ApolloClient({
   uri: 'https://pangaea-interviews.now.sh/api/graphql',
@@ -16,13 +17,15 @@ function App() {
   return (
     <ApolloProvider client={apolloClient}>
       <BrowserRouter>
-        <CartContextProvider>
-          <React.Fragment>
-            <NavBar />
-            <Cart />
-            <Routes/>
-          </React.Fragment>
-        </CartContextProvider>
+        <CurrencyContextProvider>
+          <CartContextProvider>
+            <React.Fragment>
+              <NavBar />
+              <Cart />
+              <Routes/>
+            </React.Fragment>
+          </CartContextProvider>
+        </CurrencyContextProvider>
       </BrowserRouter>
     </ApolloProvider>
   );

@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import Spinner from '../../components/spinner/spinner';
 import './store.scss';
 import ProductItem from '../../components/productItem/productItem';
+import { CurrencyContext } from '../../contexts/currencycontext';
 
 const StorePage = () => {
+  const { currency } = useContext(CurrencyContext);
+  console.log(currency)
   const EXCHANGE_RATES = gql`
-    query GetProducts {
-      products {
-      id, image_url, title, 
-      price(currency: USD)
-    }
-  }`;
+      query GetProducts {
+        products {
+        id, image_url, title, 
+        price(currency: ${currency.currency})
+      }
+    }`;
   const { loading, error, data } = useQuery(EXCHANGE_RATES);
   if(error) {
     return (
