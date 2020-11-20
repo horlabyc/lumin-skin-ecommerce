@@ -1,16 +1,20 @@
 import React, {useContext} from 'react';
+import { CartContext } from '../../contexts/cartcontext';
 import { CurrencyContext } from '../../contexts/currencycontext';
 import './cartitem.scss';
 
-const CartItem = () => {
+const CartItem = ({product}) => {
   const { currency } = useContext(CurrencyContext);
+  const { cart, dispatch } = useContext(CartContext);
 
-  const product = {
-    "id": 3,
-    "image_url": "https://d1b929y2mmls08.cloudfront.net/luminskin/img/new-landing-page/moisturizing-balm.png",
-    "title": "Premium-Grade Moisturizing Balm",
-    "price": 29
+  const addItemToCart = () => {
+    dispatch({ type:"ADD_TO_CART", payload: product})
   }
+
+  const removeItemFromCart = () => {
+    dispatch({ type:"REMOVE_FROM_CART", payload: product})
+  }
+
   return ( 
     <section className="cartitem__wrapper">
       <div className="cartitem__header">
@@ -22,12 +26,12 @@ const CartItem = () => {
       </div>
       <div className="cartitem__metadata">
         <div className="cartitem__action">
-          <p className="minus"> - </p>
-          <p className="quantity"> 20 </p>
-          <p className="add"> + </p>
+          <p className="minus" onClick={removeItemFromCart}> - </p>
+          <p className="quantity"> {product.quantity} </p>
+          <p className="add" onClick={addItemToCart}> + </p>
         </div>
         <div>
-          <p className="price">{new Intl.NumberFormat('en', { style: 'currency', currency: currency.currency }).format(product.price)}</p>
+          <p className="price">{new Intl.NumberFormat('en', { style: 'currency', currency: currency.currency }).format(product.totalPrice)}</p>
         </div>
         <div></div>
       </div>

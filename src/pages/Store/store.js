@@ -7,7 +7,7 @@ import { CurrencyContext } from '../../contexts/currencycontext';
 
 const StorePage = () => {
   const { currency } = useContext(CurrencyContext);
-  console.log(currency)
+
   const EXCHANGE_RATES = gql`
       query GetProducts {
         products {
@@ -16,6 +16,7 @@ const StorePage = () => {
       }
     }`;
   const { loading, error, data } = useQuery(EXCHANGE_RATES);
+  
   if(error) {
     return (
       <section className="storepage__wrapper">

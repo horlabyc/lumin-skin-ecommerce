@@ -9,7 +9,7 @@ import CartItem from '../cartItem/cartitem';
 const Cart = () => {
   const { cart, dispatch } = useContext(CartContext);
   const { dispatch: currencyDispatch } = useContext(CurrencyContext);
-
+  const { products } = cart;
   const closeDrawer = () => {
     dispatch({type: 'CLOSE_CART_DRAWER'})
   }
@@ -42,9 +42,14 @@ const Cart = () => {
           <div className="body">
             <CurrencySelector currencies={data?.currency} handleSelect={(value) => changeCurrency(value)}/>
             <ul className="cartItems">
-              <li className="cartItem">
-                <CartItem />
-              </li>
+              {
+                products.map((product) => {
+                  return (
+                    <li className="cartItem" key={`${product.id}-${product.title}`}>
+                    <CartItem product={product}/>
+                  </li>)
+                })
+              }
             </ul>
           </div>
         </div>

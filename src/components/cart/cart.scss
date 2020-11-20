@@ -68,8 +68,10 @@
       .body {
         height: 100vh;
         padding: 15px;
+        overflow-y: scroll;
         ul {
           list-style: none;
+          margin-bottom: 2rem;
         }
       }
     }

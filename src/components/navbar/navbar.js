@@ -41,6 +41,7 @@ const NavBar = () => {
           </section>
           <section className="section2">
             <img src={cartIcon} className="App-logo" alt="logo"  onClick={openDrawer}/>
+            <span>{cart.products.length}</span>
           </section>
         </div>
       </header>
