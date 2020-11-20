@@ -4,6 +4,7 @@ import { gql, useQuery } from '@apollo/client';
 import { CurrencyContext } from '../../contexts/currencycontext';
 import CurrencySelector from '../currencySelect/currencySelect';
 import './cart.scss';
+import CartItem from '../cartItem/cartitem';
 
 const Cart = () => {
   const { cart, dispatch } = useContext(CartContext);
@@ -40,10 +41,11 @@ const Cart = () => {
           </div>
           <div className="body">
             <CurrencySelector currencies={data?.currency} handleSelect={(value) => changeCurrency(value)}/>
-            <section className={`menuItems`}>
-              <p>Home</p>
-              <p>Blog</p>
-            </section>
+            <ul className="cartItems">
+              <li className="cartItem">
+                <CartItem />
+              </li>
+            </ul>
           </div>
         </div>
       </div>

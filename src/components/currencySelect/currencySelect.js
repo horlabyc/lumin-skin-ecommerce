@@ -6,7 +6,7 @@ const CurrencySelector = ({ currencies, handleSelect }) => {
 
   if(currencies) {
     return (
-      <select style={{ border: 'none', padding: '5px 16px 5px 8px', margin: '10px 0'}} onChange={(e) => handleSelect(e.target.value)} defaultValue={currency.currency}>
+      <select style={{ border: 'none', padding: '5px 16px 5px 8px', margin: '10px 0', outline: 'none'}} onChange={(e) => handleSelect(e.target.value)} defaultValue={currency.currency}>
       {
         currencies.map((currency) => {
           return (
