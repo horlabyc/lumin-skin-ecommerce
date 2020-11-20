@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.scss';
 import cartIcon from '../../shopping-cart.svg';
+import { CartContext } from '../../contexts/cartcontext'
 
 const NavBar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const { cart, dispatch } = useContext(CartContext);
 
+  const openDrawer = () => {
+    dispatch({type: 'OPEN_CART_DRAWER'})
+  }
   const handleScroll = () => {
     const position = window.pageYOffset;
     setScrollPosition(position);
@@ -35,7 +40,7 @@ const NavBar = () => {
             </div>
           </section>
           <section className="section2">
-            <img src={cartIcon} className="App-logo" alt="logo" />
+            <img src={cartIcon} className="App-logo" alt="logo"  onClick={openDrawer}/>
           </section>
         </div>
       </header>

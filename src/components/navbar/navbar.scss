@@ -12,7 +12,7 @@
     position: fixed;
     top: 0;
     width:93%;
-    z-index: 9999;
+    z-index: 1;
     transition: all 0.25s ease-in-out 0s;
     background-color: #f5f5f4 !important;
     &.sticky {
@@ -64,6 +64,11 @@
               list-style: none;
             }
           }
+        }
+      }
+      .section2 {
+        img {
+          cursor: pointer;
         }
       }
     }
