@@ -2,7 +2,6 @@ export const addItemToCart = (cartItems, itemToAdd) => {
   // check if the new item is in cart items in state
   const existingCartItem = cartItems && cartItems.find(cartItem => cartItem.id === itemToAdd.id);
   let newState;
-  console.log(cartItems);
   if(existingCartItem){ // if it is there
     newState = cartItems.map(cartItem => 
       cartItem.id === itemToAdd.id 
@@ -21,7 +20,7 @@ export const addItemToCart = (cartItems, itemToAdd) => {
   return newState;
 }
 
-export const removeItemFromCart = (cartItems, cartItemToRemove) => {
+export const reduceItemCountInFromCart = (cartItems, cartItemToRemove) => {
   let newState;
   const existingCartItem = cartItems.find(cartItem => cartItem.id === cartItemToRemove.id);
   if(existingCartItem.quantity === 1){
@@ -34,6 +33,17 @@ export const removeItemFromCart = (cartItems, cartItemToRemove) => {
     ? {...cartItem, quantity: cartItem.quantity - 1, actualPrice: cartItemToRemove.price, totalPrice: cartItem.actualPrice * (cartItem.quantity - 1),}
     : cartItem);
   localStorage.setItem('cart', JSON.stringify(newState));
+  return newState;
+}
+
+export const removeItemFromCart = (cartItems, cartItemToRemove) => {
+  let newState;
+  const existingCartItem = cartItems.find(cartItem => cartItem.id === cartItemToRemove.id);
+  if(existingCartItem){
+   newState = cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id );
+   localStorage.setItem('cart', JSON.stringify(newState));
+   return newState;
+  }
   return newState;
 }
 

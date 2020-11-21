@@ -1,4 +1,4 @@
-import { addItemToCart, removeItemFromCart, updateCart } from '../utils/cart.util';
+import { addItemToCart, removeItemFromCart, updateCart, reduceItemCountInFromCart } from '../utils/cart.util';
 
 export const CartReducer = (state, action) => {
   switch (action.type) {
@@ -11,7 +11,12 @@ export const CartReducer = (state, action) => {
             ...state, 
             products: addItemToCart(state.products, action.payload) 
         }
-    case 'REMOVE_FROM_CART':
+    case 'REDUCE_ITEM_COUNT_IN_CART':
+        return {
+            ...state, 
+            products: reduceItemCountInFromCart(state.products, action.payload) 
+        } 
+    case 'REMOVE_ITEM_FROM_CART':
         return {
             ...state, 
             products: removeItemFromCart(state.products, action.payload) 

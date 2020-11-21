@@ -5,28 +5,32 @@ import './cartitem.scss';
 
 const CartItem = ({product}) => {
   const { currency } = useContext(CurrencyContext);
-  const { cart, dispatch } = useContext(CartContext);
+  const { dispatch } = useContext(CartContext);
 
   const addItemToCart = () => {
     dispatch({ type:"ADD_TO_CART", payload: product})
   }
 
+  const reduceItemCountInCart = () => {
+    dispatch({ type:"REDUCE_ITEM_COUNT_IN_CART", payload: product})
+  }
+
   const removeItemFromCart = () => {
-    dispatch({ type:"REMOVE_FROM_CART", payload: product})
+    dispatch({ type:"REMOVE_ITEM_FROM_CART", payload: product})
   }
 
   return ( 
     <section className="cartitem__wrapper">
       <div className="cartitem__header">
         <p>{ product.title}</p>
-        <span> X </span>
+        <span onClick={removeItemFromCart}> X </span>
       </div>
       <div className="cartitem__image">
         <img src={product.image_url} alt={product.title}></img>
       </div>
       <div className="cartitem__metadata">
         <div className="cartitem__action">
-          <p className="minus" onClick={removeItemFromCart}> - </p>
+          <p className="minus" onClick={reduceItemCountInCart}> - </p>
           <p className="quantity"> {product.quantity} </p>
           <p className="add" onClick={addItemToCart}> + </p>
         </div>
