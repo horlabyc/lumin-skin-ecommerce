@@ -22,7 +22,7 @@ const CartItem = ({product}) => {
         <span> X </span>
       </div>
       <div className="cartitem__image">
-        <img src={product.image_url} alt="produc"></img>
+        <img src={product.image_url} alt={product.title}></img>
       </div>
       <div className="cartitem__metadata">
         <div className="cartitem__action">

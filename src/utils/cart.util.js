@@ -1,7 +1,8 @@
 export const addItemToCart = (cartItems, itemToAdd) => {
   // check if the new item is in cart items in state
-  const existingCartItem = cartItems.find(cartItem => cartItem.id === itemToAdd.id);
+  const existingCartItem = cartItems && cartItems.find(cartItem => cartItem.id === itemToAdd.id);
   let newState;
+  console.log(cartItems);
   if(existingCartItem){ // if it is there
     newState = cartItems.map(cartItem => 
       cartItem.id === itemToAdd.id 
@@ -15,7 +16,7 @@ export const addItemToCart = (cartItems, itemToAdd) => {
       localStorage.setItem('cart', JSON.stringify(newState));
     return newState;
   } //else 
-  newState = [...cartItems, {...itemToAdd, quantity: 1, actualPrice: itemToAdd.price, totalPrice: itemToAdd.price}];
+  newState = [...cartItems, {...itemToAdd, quantity: 1, actualPrice: itemToAdd.price, totalPrice: itemToAdd.price}]
   localStorage.setItem('cart', JSON.stringify(newState));
   return newState;
 }
@@ -37,16 +38,18 @@ export const removeItemFromCart = (cartItems, cartItemToRemove) => {
 }
 
 export const updateCart = (cartItems, allProducts) => {
-  cartItems.forEach((item, index) => {
-    const itemInAllProducts = allProducts.products.find((product) => product.id === item.id);
-    if(itemInAllProducts){
-      cartItems[index] = {
-        ...cartItems[index],
-        price: itemInAllProducts.price,
-        actualPrice: itemInAllProducts.price,
-        totalPrice: itemInAllProducts.price * (cartItems[index].quantity),
-        quantity: cartItems[index].quantity, 
+  if(cartItems){
+    cartItems.forEach((item, index) => {
+      const itemInAllProducts = allProducts.products.find((product) => product.id === item.id);
+      if(itemInAllProducts){
+        cartItems[index] = {
+          ...cartItems[index],
+          price: itemInAllProducts.price,
+          actualPrice: itemInAllProducts.price,
+          totalPrice: itemInAllProducts.price * (cartItems[index].quantity),
+          quantity: cartItems[index].quantity, 
+        }
       }
-    }
-  })
+    });
+  }
 }

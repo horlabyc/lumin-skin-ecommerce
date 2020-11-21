@@ -17,7 +17,7 @@ const ProductItem = ({product}) => {
 
   return (  
     <div className="item__wrapper">
-      <Image imageSrc={product.image_url} altText="product"/>
+      <Image imageSrc={product.image_url} altText={product.title}/>
       <p className="description">{product.title || ''}</p>
       <p className="price">From {new Intl.NumberFormat('en', { style: 'currency', currency: currency.currency }).format(product.price || 0)}</p>
       <Button actionText="Add to cart" handleClick={() => addToCart(product)}/>

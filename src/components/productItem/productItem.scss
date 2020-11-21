@@ -4,11 +4,14 @@
   background: #e2e6e3;
   text-align: center;
   padding: 3rem 2rem;
-  flex-basis: 25%;
   justify-content: center;
   align-items: center;
-  .description {
+  @media(max-width: 768px){
+    padding: 2.5rem 0.5rem;
+  }
+  .description, .price {
     line-height: 1.5;
     margin: 0.5rem 0;
+    font-size: 0.9rem;
   }
 }

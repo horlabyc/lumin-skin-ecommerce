@@ -6,12 +6,13 @@ import CurrencySelector from '../currencySelect/currencySelect';
 import './cart.scss';
 import CartItem from '../cartItem/cartitem';
 import { ProductsContext } from '../../contexts/productsContext';
+import Button from '../button/button';
 
 const Cart = () => {
   const { cart, dispatch } = useContext(CartContext);
-  const { dispatch: currencyDispatch } = useContext(CurrencyContext);
+  const { currency, dispatch: currencyDispatch } = useContext(CurrencyContext);
   const { products: cartItems } = cart;
-  const { products } = useContext(ProductsContext)
+  const { products } = useContext(ProductsContext);
   const closeDrawer = () => {
     dispatch({type: 'CLOSE_CART_DRAWER'})
   }
@@ -30,6 +31,12 @@ const Cart = () => {
   }`;
 
   const { data } = useQuery(CURRENCIES);
+  const totalCartItemPrice = () => {
+    if(cartItems){
+      return cartItems.reduce((acc, curr) => acc + curr.totalPrice, 0)
+    } 
+    return 0;
+  }
 
   return (  
     <div className={`drawer ${ cart.isOpen? 'open' : ''}`}>
@@ -45,19 +52,32 @@ const Cart = () => {
             </div>
             <div></div>
           </div>
-          <div className="body">
+          <div className="cart__body">
             <CurrencySelector currencies={data?.currency} handleSelect={(value) => changeCurrency(value)}/>
-            <ul className="cartItems">
-              {
-                cartItems.map((product) => {
-                  return (
-                    <li className="cartItem" key={`${product.id}-${product.title}`}>
-                    <CartItem product={product}/>
-                  </li>)
-                })
-              }
-            </ul>
+            {
+              cartItems ? 
+                <ul className="cartItems">
+                  {
+                    cartItems.map((product) => {
+                      return (
+                        <li className="cartItem" key={`${product.id}-${product.title}`}>
+                        <CartItem product={product}/>
+                      </li>)
+                    })
+                  }
+                </ul>
+              : null
+            }
           </div>
+          <section className="cart__total">
+            <div className="total">
+              <p className="title">Subtotal</p>
+              <p className="price">{new Intl.NumberFormat('en', { style: 'currency', currency: currency.currency }).format(totalCartItemPrice())}</p>
+            </div>
+            <div className="btn">
+              <Button actionText="Proceed to checkout" style={{ width: 100}}/>
+            </div>
+          </section>
         </div>
       </div>
     </div>
