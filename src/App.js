@@ -7,6 +7,7 @@ import Routes from './routes';
 import CartContextProvider from './contexts/cartcontext';
 import Cart from './components/cart/cart';
 import CurrencyContextProvider from './contexts/currencycontext';
+import ProductsContextProvider from './contexts/productsContext';
 
 const apolloClient = new ApolloClient({
   uri: 'https://pangaea-interviews.now.sh/api/graphql',
@@ -18,13 +19,15 @@ function App() {
     <ApolloProvider client={apolloClient}>
       <BrowserRouter>
         <CurrencyContextProvider>
-          <CartContextProvider>
-            <React.Fragment>
-              <NavBar />
-              <Cart />
-              <Routes/>
-            </React.Fragment>
-          </CartContextProvider>
+            <CartContextProvider>
+              <React.Fragment>
+                <NavBar />
+                <ProductsContextProvider>
+                  <Cart />
+                  <Routes/>
+                </ProductsContextProvider>
+              </React.Fragment>
+            </CartContextProvider>
         </CurrencyContextProvider>
       </BrowserRouter>
     </ApolloProvider>
