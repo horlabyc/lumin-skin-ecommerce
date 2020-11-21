@@ -1,15 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { CartContext } from '../../contexts/cartcontext';
 import { gql, useQuery } from '@apollo/client';
 import { CurrencyContext } from '../../contexts/currencycontext';
 import CurrencySelector from '../currencySelect/currencySelect';
 import './cart.scss';
 import CartItem from '../cartItem/cartitem';
+import { ProductsContext } from '../../contexts/productsContext';
 
 const Cart = () => {
   const { cart, dispatch } = useContext(CartContext);
   const { dispatch: currencyDispatch } = useContext(CurrencyContext);
-  const { products } = cart;
+  const { products: cartItems } = cart;
+  const { products } = useContext(ProductsContext)
   const closeDrawer = () => {
     dispatch({type: 'CLOSE_CART_DRAWER'})
   }
@@ -17,6 +19,10 @@ const Cart = () => {
   const changeCurrency = (currency) => {
     currencyDispatch({type: 'SET_CURRENCY', payload: currency.toUpperCase()})
   }
+  
+  useEffect(() => {
+    dispatch({ type: 'UPDATE_CART_PRICES', payload: products})
+  }, [products, dispatch]);
 
   const CURRENCIES = gql`
     query GetCurrency {
@@ -43,7 +49,7 @@ const Cart = () => {
             <CurrencySelector currencies={data?.currency} handleSelect={(value) => changeCurrency(value)}/>
             <ul className="cartItems">
               {
-                products.map((product) => {
+                cartItems.map((product) => {
                   return (
                     <li className="cartItem" key={`${product.id}-${product.title}`}>
                     <CartItem product={product}/>

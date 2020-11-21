@@ -35,3 +35,18 @@ export const removeItemFromCart = (cartItems, cartItemToRemove) => {
   localStorage.setItem('cart', JSON.stringify(newState));
   return newState;
 }
+
+export const updateCart = (cartItems, allProducts) => {
+  cartItems.forEach((item, index) => {
+    const itemInAllProducts = allProducts.products.find((product) => product.id === item.id);
+    if(itemInAllProducts){
+      cartItems[index] = {
+        ...cartItems[index],
+        price: itemInAllProducts.price,
+        actualPrice: itemInAllProducts.price,
+        totalPrice: itemInAllProducts.price * (cartItems[index].quantity),
+        quantity: cartItems[index].quantity, 
+      }
+    }
+  })
+}

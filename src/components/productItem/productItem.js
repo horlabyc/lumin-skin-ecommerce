@@ -8,8 +8,7 @@ import './productItem.scss';
 const ProductItem = ({product}) => {
 
   const { currency } = useContext(CurrencyContext);
-
-  const { cart, dispatch } = useContext(CartContext);
+  const { dispatch } = useContext(CartContext);
 
   const addToCart = (product) => {
     dispatch({ type: 'ADD_TO_CART', payload: product});
